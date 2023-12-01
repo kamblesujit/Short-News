@@ -1,0 +1,74 @@
+﻿@model List<ToShortNews.Models.ExternalDataModel.Article>
+
+
+
+
+
+
+
+<style>
+    .zoom-image:hover {
+        transform: scale(1.1);
+        transition: transform 0.5s;
+    }
+    .img{
+        height:200px;
+
+    }
+
+    .card {
+        height: 400px;
+        overflow: hidden;
+        padding-bottom: 50px;
+    }
+
+    .card-img-top {
+        max-height: 150px;
+        object-fit: cover;
+    }
+
+    .card-text {
+        max-height: 120px;
+        overflow: hidden;
+    }
+
+   
+
+</style>
+<div class="container">
+    <div class="text-center my-4">
+        <h2 class="display-4 font-weight-bold text-primary">Latest News Updates</h2>
+        <p class="lead text-muted ">Read articles here </p>
+    </div>
+
+    <div class="row my-4">
+        @if (Model != null && Model.Any())
+{
+        @foreach (var article in @Model)
+        {
+            if( article.Title!=null && article.Description!=null && article.PublishedAt!=null )
+            {
+            <div class="col-6 col-md-4 col-lg-3 mb-4">
+                <div class="card">
+                   @*  <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "~/default_images/default_image.jpg" : item.ImageUrl)" class="card-img-top zoom-image" alt="@item.Name"> *@
+                        <img src="@Url.Content(!string.IsNullOrEmpty(article.UrlToImage) ? article.UrlToImage : "~/Images/Default_Image.jpg")" class="card-img-top zoom-image" alt="No Image !">
+                    <div class="card-body">
+                        <h5 class="card-title">@article.Title.Substring(0, Math.Min(article.Title.Length, 50))..</h5>
+                        <p class="card-text">@(!string.IsNullOrEmpty(article.Description) ? article.Description.Substring(0, Math.Min(article.Description.Length, 60)) : "")..</p>
+                       
+                        <p class="card-text"><small class="text-body-secondary">Published: @article.PublishedAt.ToString("yyyy-MM-dd")</small></p>
+                        <a href="@article.Url" class="btn btn-outline-primary btn-read-more" target="_blank">Read More</a>
+                       
+                    </div>
+                </div>
+            </div>
+                }
+        }
+    
+        }
+        else
+        {
+        <p>No articles available.</p>
+        }
+    </div>
+</div>
