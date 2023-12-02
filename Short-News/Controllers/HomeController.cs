@@ -20,9 +20,9 @@ namespace Short_News.Controllers
 
         public IActionResult Index()
         {
-            // string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, @"~\CommonDataProvider\API\NewsArticles.json");
+            
             StreamReader reader = new StreamReader(@"E:\SSK\DotNet_Practical\Short-News\CommonDataProvider\API\NewsArticles.json");
-           // StreamReader reader = new StreamReader($"~//CommonDataProvider//API//NewsArticles.json");
+           
             string json = reader.ReadToEnd();
             var data = JsonConvert.DeserializeObject<ExternalDataModel>(json);
 
